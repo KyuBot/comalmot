@@ -1,4 +1,4 @@
-input_data = '판교에 지금 주문해줘'
+input_data = '판교에 피자 지금 주문해줘'
 
 output_data = ' '
 
@@ -78,3 +78,4 @@ response = {
 response["output_data"] = output_data
 
 print(response["output_data"])
+print(response["story_slot_entity"])

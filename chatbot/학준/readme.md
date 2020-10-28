@@ -21,7 +21,11 @@ KoNLPy의 하위프로젝트인 koshort 프로젝트의 pyeunjeon __(python + eu
 
 * error: Microsoft Visual C++ 14.0 is required. Get it with "Microsoft Visual C++ Build Tools": https://visualstudio.microsoft.com/downloads/
 
-  -> 해결법: https://dololak.tistory.com/520
+  -> 해결법:
+
+  https://somjang.tistory.com/entry/Python-pip-install-%EC%8B%9C-error-Microsoft-Visual-C-140-is-required-%EC%98%A4%EB%A5%98-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95 
+
+  https://dololak.tistory.com/520
 
 * ```
   Traceback (most recent call last): File "D:/workspace/pycharm/MecabTest/test2.py", line 3, in <module> mecab = Mecab(dicpath='C:/mecab/mecab-ko-dic') File "D:\workspace\pycharm\MecabTest\venv2\lib\site-packages\eunjeon\_mecab.py", line 106, in __init__ raise Exception('The MeCab dictionary does not exist at "%s". Is the dictionary correctly installed?\nYou can also try entering the dictionary path when initializing the Mecab class: "Mecab(\'/some/dic/path\')"' % dicpath) Exception: The MeCab dictionary does not exist at "C:/mecab/mecab-ko-dic". Is the dictionary correctly installed? You can also try entering the dictionary path when initializing the Mecab class: "Mecab('/some/dic/path')"
