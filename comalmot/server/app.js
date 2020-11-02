@@ -4,8 +4,8 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const app = express();
 const port = process.env.PORT || 3000;
-const sequelize = require("./models").sequelize;
-sequelize.sync();
+// const sequelize = require("./models").sequelize;
+// sequelize.sync();
 
 // app.use(require("connect-history-api-fallback")());
 app.use(express.json());
@@ -24,15 +24,15 @@ const Motherboard = require("./routes/Motherboards");
 const Ram = require("./routes/Rams");
 const Storage = require("./routes/Storages");
 
-app.use("/api/cases", Case);
-app.use("/api/cpus", Cpu);
-app.use("/api/dreclists", Dreclist);
-app.use("/api/gpus", Gpu);
-app.use("/api/laptops", Laptop);
-app.use("/api/lreclists", Lreclist);
-app.use("/api/motherboards", Motherboard);
-app.use("/api/rams", Ram);
-app.use("/api/storages", Storage);
+app.use("/web/cases", Case);
+app.use("/web/cpus", Cpu);
+app.use("/web/dreclists", Dreclist);
+app.use("/web/gpus", Gpu);
+app.use("/web/laptops", Laptop);
+app.use("/web/lreclists", Lreclist);
+app.use("/web/motherboards", Motherboard);
+app.use("/web/rams", Ram);
+app.use("/web/storages", Storage);
 
 module.exports = app;
 
