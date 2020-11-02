@@ -18,8 +18,12 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       price: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.STRING(50),
         allowNull: false,
+      },
+      img_src: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
       },
     },
     {

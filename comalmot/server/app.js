@@ -1,12 +1,11 @@
-const createError = require("http-errors");
 const cors = require("cors");
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const app = express();
 const port = process.env.PORT || 3000;
-// const sequelize = require("./models").sequelize;
-// sequelize.sync();
+const sequelize = require("./models").sequelize;
+sequelize.sync();
 
 // app.use(require("connect-history-api-fallback")());
 app.use(express.json());

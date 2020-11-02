@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       price: {
-        type: DataTypes.BIGINT,
+        type: DataTypes.STRING(50),
         allowNull: false,
       },
       weight: {
@@ -36,6 +36,10 @@ module.exports = (sequelize, DataTypes) => {
       ram: {
         type: DataTypes.BIGINT,
         allowNull: false,
+      },
+      img_src: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
       },
     },
     {
