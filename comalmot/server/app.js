@@ -24,15 +24,15 @@ const Motherboard = require("./routes/Motherboards");
 const Ram = require("./routes/Rams");
 const Storage = require("./routes/Storages");
 
-app.use("/web/cases", Case);
-app.use("/web/cpus", Cpu);
-app.use("/web/dreclists", Dreclist);
-app.use("/web/gpus", Gpu);
-app.use("/web/laptops", Laptop);
-app.use("/web/lreclists", Lreclist);
-app.use("/web/motherboards", Motherboard);
-app.use("/web/rams", Ram);
-app.use("/web/storages", Storage);
+app.use("/back/cases", Case);
+app.use("/back/cpus", Cpu);
+app.use("/back/dreclists", Dreclist);
+app.use("/back/gpus", Gpu);
+app.use("/back/laptops", Laptop);
+app.use("/back/lreclists", Lreclist);
+app.use("/back/motherboards", Motherboard);
+app.use("/back/rams", Ram);
+app.use("/back/storages", Storage);
 
 module.exports = app;
 
