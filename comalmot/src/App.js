@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Component} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -15,6 +15,8 @@ import {
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-community/google-signin';
+import {LoginButton, AccessToken} from 'react-native-fbsdk';
+
 import auth from '@react-native-firebase/auth';
 export default () => {
   const [loggedIn, setloggedIn] = useState(false);
@@ -87,6 +89,7 @@ export default () => {
       console.error(error);
     }
   };
+
   return (
     <View style={styles.container} contentInsetAdjustmentBehavior="automatic">
       <View style={styles.header}>
@@ -100,21 +103,36 @@ export default () => {
       <View style={styles.content}>
         <Image
           style={{height: '100%', width: '100%', resizeMode: 'contain'}}
-          source={require('./img/main.png')}
+          source={require('./assets/main.png')}
         />
       </View>
 
       <View style={styles.footer}>
+        <LoginButton
+          onLoginFinished={(error, result) => {
+            if (error) {
+              console.log('login has error: ' + result.error);
+            } else if (result.isCancelled) {
+              console.log('login is cancelled.');
+            } else {
+              AccessToken.getCurrentAccessToken().then((data) => {
+                console.log(data.accessToken.toString());
+              });
+            }
+          }}
+          onLogoutFinished={() => console.log('logout.')}
+        />
         <View style={styles.content}>
-          <Text>
+          {/* <Text>
             {cpu.map((a) => (
               <Text key={a.name}>
                 {a.name}
                 {'\n'}
               </Text>
             ))}
-          </Text>
+          </Text> */}
         </View>
+
         {!loggedIn && (
           <GoogleSigninButton
             style={{width: 192, height: 48}}
@@ -123,6 +141,7 @@ export default () => {
             onPress={this._signIn}
           />
         )}
+
         <View style={styles.buttonContainer}>
           {!user && <Text>You are currently logged out</Text>}
           {user && (

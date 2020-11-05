@@ -1,23 +1,26 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Component} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
   Text,
-  StatusBar,
+  Image,
   Button,
 } from 'react-native';
-
+import Hamburger from 'react-native-hamburger';
 import {Header, Colors} from 'react-native/Libraries/NewAppScreen';
 import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-community/google-signin';
+import {LoginButton, AccessToken} from 'react-native-fbsdk';
+import KakaoLogin from 'react-native-kakao-login';
 import auth from '@react-native-firebase/auth';
 export default () => {
   const [loggedIn, setloggedIn] = useState(false);
+  const [active, setActive] = useState(false);
   const [user, setUser] = useState([]);
   const [cpu, setCpu] = useState([]);
   useEffect(() => {
@@ -86,51 +89,73 @@ export default () => {
       console.error(error);
     }
   };
+
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
+    <View style={styles.container} contentInsetAdjustmentBehavior="automatic">
+      <View style={styles.header}>
+        {!active && <Hamburger type="spinArrow" onPress={() => active} />}
+      </View>
+      <View style={styles.title}>
+        <Text style={{fontSize: 35, color: 'black'}}>
+          어서와,{'\n'}컴퓨터는 처음이지?
+        </Text>
+      </View>
+      <View style={styles.content}>
+        <Image
+          style={{height: '100%', width: '100%', resizeMode: 'contain'}}
+          source={require('./img/main.png')}
+        />
+      </View>
 
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text>
-                {cpu.map((a) => (
-                  <Text key={a.name}>
-                    {a.name}
-                    {'\n'}
-                  </Text>
-                ))}
+      <View style={styles.footer}>
+        <LoginButton
+          onLoginFinished={(error, result) => {
+            if (error) {
+              console.log('login has error: ' + result.error);
+            } else if (result.isCancelled) {
+              console.log('login is cancelled.');
+            } else {
+              AccessToken.getCurrentAccessToken().then((data) => {
+                console.log(data.accessToken.toString());
+              });
+            }
+          }}
+          onLogoutFinished={() => console.log('logout.')}
+        />
+        <View style={styles.content}>
+          <Text>
+            {cpu.map((a) => (
+              <Text key={a.name}>
+                {a.name}
+                {'\n'}
               </Text>
+            ))}
+          </Text>
+        </View>
 
-              {!loggedIn && (
-                <GoogleSigninButton
-                  style={{width: 192, height: 48}}
-                  size={GoogleSigninButton.Size.Wide}
-                  color={GoogleSigninButton.Color.Dark}
-                  onPress={this._signIn}
-                />
-              )}
+        {!loggedIn && (
+          <GoogleSigninButton
+            style={{width: 192, height: 48}}
+            size={GoogleSigninButton.Size.Wide}
+            color={GoogleSigninButton.Color.Light}
+            onPress={this._signIn}
+          />
+        )}
+
+        <View style={styles.buttonContainer}>
+          {!user && <Text>You are currently logged out</Text>}
+          {user && (
+            <View>
+              <Text>Welcome {user.displayName}</Text>
+              <Button
+                onPress={this.signOut}
+                title="LogOut"
+                color="skyblue"></Button>
             </View>
-            <View style={styles.buttonContainer}>
-              {!user && <Text>You are currently logged out</Text>}
-              {user && (
-                <View>
-                  <Text>Welcome {user.displayName}</Text>
-                  <Button
-                    onPress={this.signOut}
-                    title="LogOut"
-                    color="red"></Button>
-                </View>
-              )}
-            </View>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+          )}
+        </View>
+      </View>
+    </View>
   );
 };
 
@@ -145,36 +170,32 @@ const styles = StyleSheet.create({
   body: {
     backgroundColor: Colors.white,
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-    flexDirection: 'row',
+  container: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#fff',
+  },
+  header: {
+    width: '100%',
+    height: '5%',
+    backgroundColor: '#fff',
+  },
+  title: {
+    width: '100%',
+    height: '18%',
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    alignSelf: 'center',
-  },
-  buttonContainer: {
-    alignSelf: 'center',
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
+    paddingBottom: 30,
+    backgroundColor: '#fff',
   },
   footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
+    width: '100%',
+    height: '20%',
+    //backgroundColor: '#1ad657',
   },
 });
