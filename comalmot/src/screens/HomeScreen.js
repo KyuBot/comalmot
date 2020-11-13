@@ -1,39 +1,27 @@
+// Custom Navigation Drawer / Sidebar with Image and Icon in Menu Options
+// https://aboutreact.com/custom-navigation-drawer-sidebar-with-image-and-icon-in-menu-options/
+
 import React, {useState, useEffect, Component} from 'react';
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
+  Button,
   View,
   Text,
+  SafeAreaView,
   Image,
-  Button,
 } from 'react-native';
-import Hamburger from 'react-native-hamburger';
-import {Header, Colors} from 'react-native/Libraries/NewAppScreen';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {
   GoogleSignin,
   GoogleSigninButton,
   statusCodes,
 } from '@react-native-community/google-signin';
-import {LoginButton, AccessToken} from 'react-native-fbsdk';
 import auth from '@react-native-firebase/auth';
 
-export default () => {
+const HomeScreen = ({navigation}) => {
   const [loggedIn, setloggedIn] = useState(false);
-  const [active, setActive] = useState(false);
   const [user, setUser] = useState([]);
-  const [cpu, setCpu] = useState([]);
-  useEffect(() => {
-    fetch('http://k3b206.p.ssafy.io/back/rams')
-      .then((response) => response.json())
-      .then((cpu) => {
-        setCpu(cpu);
-        // console.log(cpu);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+
   _signIn = async () => {
     try {
       await GoogleSignin.hasPlayServices();
@@ -91,48 +79,23 @@ export default () => {
   };
 
   return (
-    <View style={styles.container} contentInsetAdjustmentBehavior="automatic">
-      <View style={styles.header}>
-        {!active && <Hamburger type="spinArrow" onPress={() => active} />}
-      </View>
-      <View style={styles.title}>
-        <Text style={{fontSize: 35, color: 'black'}}>
-          어서와,{'\n'}컴퓨터는 처음이지?
-        </Text>
-      </View>
-      <View style={styles.content}>
-        <Image
-          style={{height: '100%', width: '100%', resizeMode: 'contain'}}
-          source={require('./assets/main.png')}
-        />
-      </View>
-
-      <View style={styles.footer}>
-        <LoginButton
-          onLoginFinished={(error, result) => {
-            if (error) {
-              console.log('login has error: ' + result.error);
-            } else if (result.isCancelled) {
-              console.log('login is cancelled.');
-            } else {
-              AccessToken.getCurrentAccessToken().then((data) => {
-                console.log(data.accessToken.toString());
-              });
-            }
-          }}
-          onLogoutFinished={() => console.log('logout.')}
-        />
-        <View style={styles.content}>
-          <Text>
-            {cpu.map((a) => (
-              <Text key={a.name}>
-                {a.name}
-                {'\n'}
-              </Text>
-            ))}
+    <SafeAreaView style={{flex: 1}}>
+      <View style={{flex: 1, padding: 16}}>
+        <View
+          style={{
+            marginTop: 100,
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text style={{fontSize: 35, color: 'black'}}>
+            어서와,{'\n'}컴퓨터는 처음이지?
           </Text>
+          <Image
+            style={{height: '100%', width: '100%', resizeMode: 'contain'}}
+            source={require('../assets/main.png')}
+          />
         </View>
-
         {!loggedIn && (
           <GoogleSigninButton
             style={{width: 192, height: 48}}
@@ -141,7 +104,6 @@ export default () => {
             onPress={this._signIn}
           />
         )}
-
         <View style={styles.buttonContainer}>
           {!user && <Text>You are currently logged out</Text>}
           {user && (
@@ -155,14 +117,20 @@ export default () => {
           )}
         </View>
       </View>
-    </View>
+      <Button
+        title="go to Chatbot"
+        onPress={() => navigation.navigate('ChatbotScreen')}
+      />
+      <Text style={{fontSize: 18, textAlign: 'center', color: 'grey'}}>
+        Custom React Navigate Drawer
+      </Text>
+      <Text style={{fontSize: 16, textAlign: 'center', color: 'grey'}}>
+        www.aboutreact.com
+      </Text>
+    </SafeAreaView>
   );
 };
-
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
   engine: {
     position: 'absolute',
     right: 0,
@@ -199,3 +167,4 @@ const styles = StyleSheet.create({
     //backgroundColor: '#1ad657',
   },
 });
+export default HomeScreen;

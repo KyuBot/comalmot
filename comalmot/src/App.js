@@ -1,13 +1,5 @@
 import React, {useState, useEffect, Component} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  Image,
-  Button,
-} from 'react-native';
+import {StyleSheet, View, Text, Image, Button} from 'react-native';
 import Hamburger from 'react-native-hamburger';
 import {Header, Colors} from 'react-native/Libraries/NewAppScreen';
 import {
@@ -16,8 +8,8 @@ import {
   statusCodes,
 } from '@react-native-community/google-signin';
 import {LoginButton, AccessToken} from 'react-native-fbsdk';
-
 import auth from '@react-native-firebase/auth';
+
 export default () => {
   const [loggedIn, setloggedIn] = useState(false);
   const [active, setActive] = useState(false);
@@ -123,14 +115,14 @@ export default () => {
           onLogoutFinished={() => console.log('logout.')}
         />
         <View style={styles.content}>
-          {/* <Text>
+          <Text>
             {cpu.map((a) => (
               <Text key={a.name}>
                 {a.name}
                 {'\n'}
               </Text>
             ))}
-          </Text> */}
+          </Text>
         </View>
 
         {!loggedIn && (
@@ -160,9 +152,6 @@ export default () => {
 };
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
   engine: {
     position: 'absolute',
     right: 0,
