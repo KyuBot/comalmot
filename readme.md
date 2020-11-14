@@ -187,4 +187,8 @@
 
 2) 화면예시
 
-![image-20201014163125979](대전_2반_B206_김학준.assets/image-20201014163125979.png)
+![image-20201104174743890](C:\Users\multicampus\Desktop\final pjt\s03p31b206\readme.assets\image-20201104174743890.png)
+
+![image-20201104174707268](C:\Users\multicampus\Desktop\final pjt\s03p31b206\readme.assets\image-20201104174707268.png)
+
+![image-20201104174809694](C:\Users\multicampus\Desktop\final pjt\s03p31b206\readme.assets\image-20201104174809694.png)
