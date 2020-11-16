@@ -1,0 +1,13 @@
+{
+  "development": {
+    "username": "b206",
+    "password": "b206",
+    "database": "comalmot",
+    "host": "k3b206.p.ssafy.io",
+    "dialect": "mariadb",
+    "dialectOptions": {
+      "timezone": "Etc/GMT+9"
+    },
+    "operatorAliases": false
+  }
+}
